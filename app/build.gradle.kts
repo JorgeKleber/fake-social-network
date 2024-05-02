@@ -49,13 +49,16 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
+    implementation(project(":core"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
     //retrofit lib e gson
     implementation(libs.retrofit)
-
+    implementation (libs.squareup.converter.gson)
     //glide lib para carregamento de imagem.
     implementation (libs.glide)
+    //exibição de imagem redonda.
+    implementation(libs.circleimageview)
 }
