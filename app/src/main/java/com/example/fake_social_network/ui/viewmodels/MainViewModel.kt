@@ -3,6 +3,8 @@ package com.example.fake_social_network.ui.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.core.models.CoffeeImage
+import com.example.core.models.DogImage
 import com.example.core.models.Root
 import com.example.fake_social_network.data.repository.remote.RemoteService
 import com.example.fake_social_network.data.repository.remote.RemoteServiceImpl
@@ -16,6 +18,8 @@ class MainViewModel : ViewModel() {
     private val remoteService = RemoteServiceImpl.createRemoteService()
     val contactList = MutableLiveData<Root>()
     val errorMessage = MutableLiveData<String>()
+    var coffeeImage = MutableLiveData<CoffeeImage>()
+    var dogImage = MutableLiveData<DogImage>()
 
     fun getUserList() {
 
