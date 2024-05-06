@@ -24,5 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         viewModel.getUserList()
+        viewModel.getCoffeeImage()
+        viewModel.getDogImage()
     }
 }

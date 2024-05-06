@@ -15,9 +15,10 @@ import retrofit2.Response
 
 class MainViewModel : ViewModel() {
 
-    private val remoteService = RemoteServiceImpl.createRemoteService()
     val contactList = MutableLiveData<Root>()
     val errorMessage = MutableLiveData<String>()
+
+    private val remoteService = RemoteServiceImpl.createRemoteService()
     var coffeeImage = MutableLiveData<CoffeeImage>()
     var dogImage = MutableLiveData<DogImage>()
 
@@ -34,19 +35,27 @@ class MainViewModel : ViewModel() {
         })
     }
 
-
-// Como a viewmodel contem argumento é necessário criar uma factory.
-/*    companion object {
-        class MainViewModelFactory(private val parameter: RemoteService) : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return if (modelClass.isAssignableFrom(MainViewModel::class.java))
-                {
-                    MainViewModel(this.parameter) as T
-                }
-                else{
-                    throw java.lang.IllegalArgumentException("ViewModel não encontrada")
-                }
+    fun getDogImage(){
+        remoteService.getDogImage().enqueue(object : Callback<DogImage>{
+            override fun onResponse(call: Call<DogImage>, response: Response<DogImage>) {
+                dogImage.postValue(response.body())
             }
-        }
-    }*/
+
+            override fun onFailure(call: Call<DogImage>, t: Throwable) {
+                errorMessage.postValue(t.message)
+            }
+        })
+    }
+
+    fun getCoffeeImage(){
+        remoteService.getCoffeeImage().enqueue(object : Callback<CoffeeImage>{
+            override fun onResponse(call: Call<CoffeeImage>, response: Response<CoffeeImage>) {
+                coffeeImage.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<CoffeeImage>, t: Throwable) {
+                errorMessage.postValue(t.message)
+            }
+        })
+    }
 }
