@@ -2,13 +2,10 @@ package com.example.fake_social_network.ui.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.core.models.CoffeeImage
 import com.example.core.models.DogImage
 import com.example.core.models.Root
-import com.example.fake_social_network.data.repository.remote.RemoteService
 import com.example.fake_social_network.data.repository.remote.RemoteServiceImpl
-import com.example.fake_social_network.data.services.handomUserAPI.HandomUserServiceFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
