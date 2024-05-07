@@ -42,4 +42,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation (libs.squareup.converter.gson)
+    implementation (libs.glide)
 }

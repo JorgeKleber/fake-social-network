@@ -3,6 +3,7 @@ package com.example.fake_social_network.data.repository.remote
 
 import com.example.core.models.CoffeeImage
 import com.example.core.models.DogImage
+import com.example.core.models.Post
 import com.example.core.models.Root
 import com.example.fake_social_network.data.services.coffeeImageAPI.CoffeeImageServiceFactory
 import com.example.fake_social_network.data.services.dogsImageAPI.DogsImageAPIFactory
@@ -22,14 +23,13 @@ class RemoteServiceImpl() : RemoteService {
         return handoUserService.getUserList()
     }
 
-    override fun getDogImage(): Call<DogImage> {
+    override fun getDogImage(): Call<List<String>> {
         return dogImgService.getDogImage()
     }
 
     override fun getCoffeeImage(): Call<CoffeeImage> {
        return coffeeImgService.getCoffeeImage()
     }
-
 
     companion object{
         fun createRemoteService() : RemoteServiceImpl{
