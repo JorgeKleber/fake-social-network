@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.core.models.CoffeeImage
 import com.example.core.models.DogImage
+import com.example.core.models.Post
+import com.example.core.models.Results
 import com.example.core.models.Root
 import com.example.fake_social_network.data.repository.remote.RemoteServiceImpl
 import retrofit2.Call
@@ -18,6 +20,8 @@ class MainViewModel : ViewModel() {
     private val remoteService = RemoteServiceImpl.createRemoteService()
     var coffeeImage = MutableLiveData<CoffeeImage>()
     var dogImage = MutableLiveData<DogImage>()
+
+    var fakePosts = ArrayList<Post>()
 
     fun getUserList() {
 
@@ -54,5 +58,25 @@ class MainViewModel : ViewModel() {
                 errorMessage.postValue(t.message)
             }
         })
+    }
+
+    fun getFakeData() : ArrayList<Post>{
+
+        for (i in 1..10)
+        {
+            var user_name_full = contactList.value!!.results[i].name!!.first + " " +
+                    contactList.value!!.results[i].name!!.last
+
+            fakePosts.add(Post(
+                post_id = contactList.value!!.results[i].id?.value.toString(),
+                post_user_image = contactList.value!!.results[i].picture?.medium.toString(),
+                post_user_name = user_name_full,
+                post_user_country = contactList.value!!.results[i].location!!.country.toString(),
+                post_image = dogImage.value!!.url,
+                post_subtitle = "",
+            ))
+        }
+
+        return fakePosts
     }
 }

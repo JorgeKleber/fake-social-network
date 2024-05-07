@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.core.models.Results
+import com.example.core.util.ImageTools
 import com.example.fake_social_network.R
 
 class StoryListAdapter(
@@ -15,17 +16,13 @@ class StoryListAdapter(
 
     inner class StoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        lateinit var userImage : ImageView
-
-        init {
-            userImage = itemView.findViewById(R.id.user_item_image)
-        }
+        var userImage : ImageView = itemView.findViewById(R.id.user_item_image)
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
 
-        var viewHolder = LayoutInflater.from(parent.context)
+        val viewHolder = LayoutInflater.from(parent.context)
             .inflate(R.layout.user_image,parent,false)
 
         return  StoryViewHolder(viewHolder)
@@ -39,13 +36,7 @@ class StoryListAdapter(
 
         val imageSource = listData[position].picture?.medium
 
-        loadImage(imageSource!!, holder.userImage)
-    }
-
-    private fun loadImage(link: String, imageView : ImageView){
-        Glide.with(imageView.context)
-            .load(link)
-            .into(imageView)
+        ImageTools.loadImage(imageSource!!, holder.userImage)
     }
 }
 

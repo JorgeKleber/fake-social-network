@@ -5,18 +5,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.core.models.Post
 import com.example.core.models.Results
 import com.example.fake_social_network.databinding.ActivityMainBinding
 import com.example.fake_social_network.ui.viewmodels.MainViewModel
+import com.example.fake_social_network.ui.views.adapters.FeedListAdapter
 import com.example.fake_social_network.ui.views.adapters.StoryListAdapter
-import retrofit2.Callback
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
     private lateinit var viewModel : MainViewModel
-    private var listData = ArrayList<Results>()
-    private val storyListAdater = StoryListAdapter(listData)
+    private var storyListData = ArrayList<Results>()
+    private var feedListData = ArrayList<Post>()
+    private val storyListAdater = StoryListAdapter(storyListData)
+    private val feedListAdater = FeedListAdapter(feedListData)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,10 +37,12 @@ class MainActivity : AppCompatActivity() {
         var linearLayoutManager = LinearLayoutManager(this,
             LinearLayoutManager.HORIZONTAL,
             false)
-        binding.storyList.layoutManager = linearLayoutManager
 
+        binding.storyList.layoutManager = linearLayoutManager
         binding.storyList.adapter = storyListAdater
 
+        binding.feedList.layoutManager = LinearLayoutManager(this)
+        binding.feedList.adapter = feedListAdater
     }
 
     override fun onResume() {
@@ -48,8 +53,13 @@ class MainActivity : AppCompatActivity() {
         viewModel.getDogImage()
 
         viewModel.contactList.observe(this, Observer{ datalist ->
-            listData.addAll(datalist.results)
+            storyListData.addAll(datalist.results)
             storyListAdater.notifyDataSetChanged()
+        })
+
+        viewModel.dogImage.observe(this, Observer {
+            feedListData.addAll(viewModel.getFakeData())
+            feedListAdater.notifyDataSetChanged()
         })
     }
 }
