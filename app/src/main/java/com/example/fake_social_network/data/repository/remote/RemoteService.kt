@@ -8,6 +8,6 @@ import retrofit2.Call
 
 interface RemoteService {
     fun getUserList() : Call<Root>
-    fun getDogImage() : Call<DogImage>
+    fun getDogImage() : Call<List<String>>
     fun getCoffeeImage() : Call<CoffeeImage>
 }

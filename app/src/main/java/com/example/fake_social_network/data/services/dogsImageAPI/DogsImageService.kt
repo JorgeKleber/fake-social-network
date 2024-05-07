@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface DogsImageService {
-    @GET("woof.json")
-    fun getDogImage() : Call<DogImage>
+    @GET("doggos")
+    fun getDogImage() : Call<List<String>>
 
 }

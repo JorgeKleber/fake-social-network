@@ -23,7 +23,7 @@ class RemoteServiceImpl() : RemoteService {
         return handoUserService.getUserList()
     }
 
-    override fun getDogImage(): Call<DogImage> {
+    override fun getDogImage(): Call<List<String>> {
         return dogImgService.getDogImage()
     }
 

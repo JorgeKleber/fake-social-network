@@ -38,8 +38,10 @@ class FeedListAdapter(
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
 
+        var imagesrc = "https://random.dog/" + feedList[position].post_image!!
+
         ImageTools.loadImage(feedList[position].post_user_image, holder.user_image)
-        ImageTools.loadImage(feedList[position].post_image!!, holder.post_image)
+        ImageTools.loadImage(imagesrc, holder.post_image)
         holder.user_name.text = feedList[position].post_user_name
         holder.user_country.text = feedList[position].post_user_country
         holder.post_subtitle.text = "This is a test subtitle, this is a test subtitle"

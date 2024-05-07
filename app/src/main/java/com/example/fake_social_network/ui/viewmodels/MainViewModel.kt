@@ -19,7 +19,7 @@ class MainViewModel : ViewModel() {
 
     private val remoteService = RemoteServiceImpl.createRemoteService()
     var coffeeImage = MutableLiveData<CoffeeImage>()
-    var dogImage = MutableLiveData<DogImage>()
+    var dogImage = MutableLiveData<List<String>>()
 
     var fakePosts = ArrayList<Post>()
 
@@ -37,12 +37,12 @@ class MainViewModel : ViewModel() {
     }
 
     fun getDogImage(){
-        remoteService.getDogImage().enqueue(object : Callback<DogImage>{
-            override fun onResponse(call: Call<DogImage>, response: Response<DogImage>) {
+        remoteService.getDogImage().enqueue(object : Callback<List<String>>{
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                 dogImage.postValue(response.body())
             }
 
-            override fun onFailure(call: Call<DogImage>, t: Throwable) {
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
                 errorMessage.postValue(t.message)
             }
         })
@@ -72,7 +72,7 @@ class MainViewModel : ViewModel() {
                 post_user_image = contactList.value!!.results[i].picture?.medium.toString(),
                 post_user_name = user_name_full,
                 post_user_country = contactList.value!!.results[i].location!!.country.toString(),
-                post_image = dogImage.value!!.url,
+                post_image = dogImage.value!![i],
                 post_subtitle = "",
             ))
         }
