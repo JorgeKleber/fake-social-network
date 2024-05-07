@@ -1,0 +1,61 @@
+package com.example.fake_social_network.ui.viewmodels
+
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.core.models.CoffeeImage
+import com.example.core.models.DogImage
+import com.example.core.models.Root
+import com.example.fake_social_network.data.repository.remote.RemoteService
+import com.example.fake_social_network.data.repository.remote.RemoteServiceImpl
+import com.example.fake_social_network.data.services.handomUserAPI.HandomUserServiceFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
+class MainViewModel : ViewModel() {
+
+    val contactList = MutableLiveData<Root>()
+    val errorMessage = MutableLiveData<String>()
+
+    private val remoteService = RemoteServiceImpl.createRemoteService()
+    var coffeeImage = MutableLiveData<CoffeeImage>()
+    var dogImage = MutableLiveData<DogImage>()
+
+    fun getUserList() {
+
+        remoteService.getUserList().enqueue(object : Callback<Root> {
+            override fun onResponse(call: Call<Root>, response: Response<Root>) {
+                contactList.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<Root>, t: Throwable) {
+                errorMessage.postValue(t.message)
+            }
+        })
+    }
+
+    fun getDogImage(){
+        remoteService.getDogImage().enqueue(object : Callback<DogImage>{
+            override fun onResponse(call: Call<DogImage>, response: Response<DogImage>) {
+                dogImage.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<DogImage>, t: Throwable) {
+                errorMessage.postValue(t.message)
+            }
+        })
+    }
+
+    fun getCoffeeImage(){
+        remoteService.getCoffeeImage().enqueue(object : Callback<CoffeeImage>{
+            override fun onResponse(call: Call<CoffeeImage>, response: Response<CoffeeImage>) {
+                coffeeImage.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<CoffeeImage>, t: Throwable) {
+                errorMessage.postValue(t.message)
+            }
+        })
+    }
+}
