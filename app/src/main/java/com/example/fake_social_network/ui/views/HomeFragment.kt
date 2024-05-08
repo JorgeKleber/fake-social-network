@@ -43,10 +43,14 @@ class HomeFragment : Fragment() {
             LinearLayoutManager.HORIZONTAL,
             false)
 
+        var linearLayoutManager2 = LinearLayoutManager(this.context,
+            LinearLayoutManager.VERTICAL,
+            false)
+
         binding.storyList.layoutManager = linearLayoutManager
         binding.storyList.adapter = storyListAdater
 
-        binding.feedList.layoutManager = LinearLayoutManager(this.context)
+        binding.feedList.layoutManager = linearLayoutManager2
         binding.feedList.adapter = feedListAdater
 
         return  view
