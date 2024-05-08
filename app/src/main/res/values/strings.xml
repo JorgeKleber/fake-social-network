@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">fake-social-network</string>
+    <string name="home">home</string>
+    <string name="videos">videos</string>
+    <string name="new_post">new</string>
+    <string name="chat">chat</string>
+    <string name="explore">Explore</string>
 </resources>
