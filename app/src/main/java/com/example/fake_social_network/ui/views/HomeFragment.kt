@@ -36,6 +36,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -53,25 +54,27 @@ class HomeFragment : Fragment() {
         binding.feedList.layoutManager = linearLayoutManager2
         binding.feedList.adapter = feedListAdater
 
+        viewModel.getUserList()
+        viewModel.getCoffeeImage()
+        viewModel.getDogImage()
+
+        viewModel.contactList.observe(viewLifecycleOwner, Observer{ datalist ->
+            storyListData.addAll(datalist.results)
+            storyListAdater.notifyDataSetChanged()
+        })
+
+        viewModel.dogImage.observe(viewLifecycleOwner, Observer {
+            var listData = viewModel.getFakeData()
+            feedListData.addAll(listData)
+            feedListAdater.notifyDataSetChanged()
+        })
+
         return  view
     }
 
     override fun onResume() {
         super.onResume()
 
-        viewModel.getUserList()
-        viewModel.getCoffeeImage()
-        viewModel.getDogImage()
-
-        viewModel.contactList.observe(this, Observer{ datalist ->
-            storyListData.addAll(datalist.results)
-            storyListAdater.notifyDataSetChanged()
-        })
-
-        viewModel.dogImage.observe(this, Observer {
-            feedListData.addAll(viewModel.getFakeData())
-            feedListAdater.notifyDataSetChanged()
-        })
     }
 
 

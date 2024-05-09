@@ -26,6 +26,7 @@ class HomeViewModel : ViewModel() {
         remoteService.getUserList().enqueue(object : Callback<Root> {
             override fun onResponse(call: Call<Root>, response: Response<Root>) {
                 contactList.postValue(response.body())
+
             }
 
             override fun onFailure(call: Call<Root>, t: Throwable) {
@@ -38,6 +39,9 @@ class HomeViewModel : ViewModel() {
         remoteService.getDogImage().enqueue(object : Callback<List<String>> {
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                 dogImage.postValue(response.body())
+
+                val testeContact = contactList.value
+
             }
 
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
@@ -73,10 +77,8 @@ class HomeViewModel : ViewModel() {
                 post_user_country = contactList.value!!.results[i].location!!.country.toString(),
                 post_image = dogImage.value!![i],
                 post_subtitle = "",
-            )
-            )
+            ))
         }
-
         return fakePosts
     }
 }
